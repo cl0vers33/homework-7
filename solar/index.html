@@ -16,9 +16,11 @@
     <!-- 微弱环境光打底，主照明来自太阳点光源 -->
     <a-light type="ambient" color="#8899ff" intensity="0.25"></a-light>
 
-    <!-- 太阳：自发光材质，点光源置于太阳系原点 -->
+    <!-- 太阳：自发光材质，点光源置于太阳系原点；缓慢自转+呼吸式脉动 -->
     <a-sphere id="sun" radius="1.2"
-              material="shader:standard; color:#ff8f00; emissive:#ff6d00; emissiveIntensity:1.1">
+              material="shader:standard; color:#ff8f00; emissive:#ff6d00; emissiveIntensity:1.1"
+              animation="property: rotation; to: 0 360 0; dur: 20000; loop: true; easing: linear"
+              animation__pulse="property: scale; to: 1.08 1.08 1.08; dir: alternate; dur: 1600; loop: true">
     </a-sphere>
     <a-light type="point" color="#ffd28a" intensity="1.3" distance="40" decay="0"></a-light>
 
@@ -30,27 +32,35 @@
     <a-torus radius="5" radius-tubular="0.015" rotation="-90 0 0"
              material="shader:flat; color:#39496b; transparent:true; opacity:0.55"></a-torus>
 
-    <!-- 地球（轨道半径3）与月球 -->
-    <a-entity id="earth-orbit">
+    <!-- 地球（轨道半径3）：外层实体公转，球体自身再自转 -->
+    <a-entity id="earth-orbit"
+              animation="property: rotation; to: 0 360 0; dur: 10000; loop: true; easing: linear">
       <a-entity position="3 0 0">
-        <a-sphere radius="0.45" material="shader:standard; color:#1e88e5; roughness:0.6"></a-sphere>
-        <a-entity id="moon-orbit">
+        <a-sphere radius="0.45" material="shader:standard; color:#1e88e5; roughness:0.6"
+                  animation="property: rotation; to: 0 360 0; dur: 4000; loop: true; easing: linear"></a-sphere>
+        <!-- 月球绕地球快速公转 -->
+        <a-entity id="moon-orbit"
+                  animation="property: rotation; to: 0 360 0; dur: 3000; loop: true; easing: linear">
           <a-sphere position="0.8 0 0" radius="0.14" color="#bdbdbd"></a-sphere>
         </a-entity>
       </a-entity>
     </a-entity>
 
-    <!-- 火星（轨道半径4） -->
-    <a-entity id="mars-orbit">
+    <!-- 火星（轨道半径4）：公转最慢、自身自转 -->
+    <a-entity id="mars-orbit"
+              animation="property: rotation; to: 0 360 0; dur: 16000; loop: true; easing: linear">
       <a-entity position="4 0 0">
-        <a-sphere radius="0.3" material="shader:standard; color:#e5532b; roughness:0.9"></a-sphere>
+        <a-sphere radius="0.3" material="shader:standard; color:#e5532b; roughness:0.9"
+                  animation="property: rotation; to: 0 360 0; dur: 5000; loop: true; easing: linear"></a-sphere>
       </a-entity>
     </a-entity>
 
     <!-- 土星（轨道半径5）与倾斜光环 -->
-    <a-entity id="saturn-orbit">
+    <a-entity id="saturn-orbit"
+              animation="property: rotation; to: 0 360 0; dur: 24000; loop: true; easing: linear">
       <a-entity position="5 0 0">
-        <a-sphere radius="0.75" material="shader:standard; color:#e3c488; roughness:0.9"></a-sphere>
+        <a-sphere radius="0.75" material="shader:standard; color:#e3c488; roughness:0.9"
+                  animation="property: rotation; to: 0 360 0; dur: 8000; loop: true; easing: linear"></a-sphere>
         <a-torus radius="1.05" radius-tubular="0.06" rotation="-90 20 0"
                  material="shader:standard; color:#c9a876; roughness:0.9"></a-torus>
       </a-entity>
